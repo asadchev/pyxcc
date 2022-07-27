@@ -2,7 +2,7 @@ import pyxcc.gto.reference.rysq as rysq
 
 from pytest import approx
 
-def test_rysq_uw():
+def test_rysq_roots():
 
   tw5 = (
     (0.000000, 0, 0.14887433898163121088, 0.29552422471475287017),
@@ -23,8 +23,38 @@ def test_rysq_uw():
   )
 
   for (x,a,ta,Wa) in tw5:
-    Q = rysq.Q(5,x)
+    Q = rysq.Roots(5,x)
     Ua = ta**2/(1-ta**2)
     assert(Q.t[a] == approx(ta, 1e-16))
     assert(Q.W[a] == approx(Wa, 1e-16))
     assert(Q.U[a] == approx(Ua, 1e-10))
+
+def test_rysq_eri4():
+
+  from pyxcc import gto
+  from pyxcc.gto.reference import rysq
+
+  A = gto.Shell(2, [(.1, 1)], R=[0,0,0])
+
+
+  print(rysq.eri([A,A],[A,A]))
+
+def test_rysq_eri3():
+
+  from pyxcc import gto
+  from pyxcc.gto.reference import rysq
+
+  A = gto.Shell(2, [(.1, 1)], R=[0,0,0])
+
+  rysq.eri([A,A],[A])
+  rysq.eri([A],[A,A])
+
+def test_rysq_eri2():
+
+  from pyxcc import gto
+  from pyxcc.gto.reference import rysq
+
+  A = gto.Shell(2, [(.1, 1)], R=[0,0,0])
+
+  rysq.eri([A],[A])
+  #rysq.eri([A,A])

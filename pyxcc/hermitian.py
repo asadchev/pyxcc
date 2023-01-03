@@ -15,7 +15,7 @@ def E1(A,B,p,a,b,Xab):
   if (p < 0 or p > A + B): return 0
   if B:
     B = B-1
-    X = a*Xab/(a+b)
+    X = +a*Xab/(a+b)
   else:
     assert(A)
     A = A-1

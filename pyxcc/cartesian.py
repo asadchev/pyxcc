@@ -37,6 +37,11 @@ class Orbital(tuple):
   def __str__(self):
     return "(%s)" % "".join(map(str,self))
 
+  def __getitem__(self,k):
+    if isinstance(k,str):
+      k = 'xyz'.index(k)
+    return super().__getitem__(k)
+
   @property
   def L(self): return sum(self)
   @property
